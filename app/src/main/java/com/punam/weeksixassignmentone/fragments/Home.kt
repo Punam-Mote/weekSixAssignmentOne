@@ -40,7 +40,7 @@ class Home : Fragment() {
         recyclerView.adapter=adapter
 //        val adapter=context?.let { ViewPageAdapter(listStudent, it) }
 //        recyclerView.layoutManager= LinearLayoutManager(null)
-//        recyclerView.adapter=adapter
+//      recyclerView.adapter=adapter
 
 //        Bundle bundle =this.getArguments()
 //        String data=bundle.getString("studentdata")
