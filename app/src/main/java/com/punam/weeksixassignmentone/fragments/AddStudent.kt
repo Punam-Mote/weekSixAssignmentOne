@@ -13,6 +13,7 @@ import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import com.punam.weeksixassignmentone.CommunicateInterface
 import com.punam.weeksixassignmentone.R
+import com.punam.weeksixassignmentone.StudentData
 import com.punam.weeksixassignmentone.model.Student
 
 
@@ -29,13 +30,13 @@ class AddStudent : Fragment(){
     private lateinit var etimage:EditText
 
     private lateinit var btnSave:Button
-  //  var arrayList = arrayListOf<Student>();// initialize arrayList
+  //  var arrayList = arrayListOf<Student>()
 
 
 
 
      var newStudent=ArrayList<Student>()
-   private lateinit var communicateInterface: CommunicateInterface
+  // private lateinit var communicateInterface: CommunicateInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,19 +59,34 @@ class AddStudent : Fragment(){
 
 //        val addstudent = AddStudent()
 
-        communicateInterface=activity as CommunicateInterface
+   //     communicateInterface=activity as CommunicateInterface
         btnSave.setOnClickListener {
             var name = etName.text.toString();
-            var age = etAge.text.toString().toInt();
+            var age = 0;
+            try{
+                age = etAge.text.toString().toInt();
+            }catch (e:Exception){
+                e.printStackTrace();
+                age = 0;
+            }
             var gender = rdGroup.checkedRadioButtonId.toString();
             var address = etAddress.text.toString();
             var image = etimage.text.toString();
             var studentdata = Student(id, name, age, gender, address, image)
 
             newStudent.add(studentdata);
+            var bundle = Bundle()
+//            bundle.putExtra("data","yourdata");
+            bundle.putString("data","yourdata");
+            var homeFragment = Home();
+            homeFragment.arguments = bundle
+            StudentData.get().List().add(studentdata);
+//            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.viewPage,homeFragment)?.commit()
 
 
-            communicateInterface.passData(newStudent)
+
+
+           // communicateInterface.passData(newStudent)
 
 //            Bundle bundle = new Bundle();
 //            bundle.putString("studentdata",newStudent)

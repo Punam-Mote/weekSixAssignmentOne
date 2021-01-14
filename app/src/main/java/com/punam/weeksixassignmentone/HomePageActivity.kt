@@ -17,7 +17,7 @@ import com.punam.weeksixassignmentone.fragments.AddStudent
 import com.punam.weeksixassignmentone.fragments.Home
 import com.punam.weeksixassignmentone.model.Student
 
-class HomePageActivity : AppCompatActivity(), CommunicateInterface  {
+class HomePageActivity : AppCompatActivity() {
     private lateinit var lstTitle: ArrayList<String>
     private lateinit var lstFragment: ArrayList<Fragment>
     private lateinit var viewPage:ViewPager2
@@ -28,9 +28,11 @@ class HomePageActivity : AppCompatActivity(), CommunicateInterface  {
         setContentView(R.layout.activity_home_page)
         viewPage=findViewById(R.id.viewPage)
         tabLayout=findViewById(R.id.tabLayout)
+//        lstFragment = arrayListOf()
 
-        val addStudent = AddStudent()
-        supportFragmentManager.beginTransaction().replace(R.id.recyclerView,addStudent).commit()
+//        val addStudent = AddStudent()
+//        supportFragmentManager.beginTransaction().replace(R.id.recyclerView,addStudent).commit()
+//        tabLayout.se
 
 
         AddStudents();
@@ -56,14 +58,14 @@ class HomePageActivity : AppCompatActivity(), CommunicateInterface  {
         lstFragment.add(About())
     }
 
-    override fun passData(arrayList: ArrayList<Student>) {
-        val bundle=Bundle()
-        bundle.putString("student", arrayList.toString())
-
-        val transaction=this.supportFragmentManager.beginTransaction()
-        val home = Home()
-        home.arguments=bundle
-
-        transaction.commit()
-    }
+//    override fun passData(arrayList: ArrayList<Student>) {
+//        val bundle=Bundle()
+//        bundle.putString("student", arrayList.toString())
+//
+//        val transaction=this.supportFragmentManager.beginTransaction()
+//        val home = Home()
+//        home.arguments=bundle
+//
+//        transaction.commit()
+//    }
 }
