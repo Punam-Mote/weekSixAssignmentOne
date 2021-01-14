@@ -11,6 +11,7 @@ data class Student (
         var Address : String? = null,
         var image : String? = null
 
+
 ):Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt(),

@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -20,12 +21,14 @@ class StudentAdapter(
         ): RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
     //creating Entity
     class StudentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
+        val imgDel:ImageView
+        
         val imgProfile: CircleImageView
         val tvName: TextView
         val tvAge: TextView
         val tvAddress: TextView
         val tvGender: TextView
+
 
         init {
             imgProfile = view.findViewById(R.id.imgProfile)
@@ -33,6 +36,7 @@ class StudentAdapter(
             tvAge = view.findViewById(R.id.tvAge)
             tvAddress = view.findViewById(R.id.tvAddress)
             tvGender = view.findViewById(R.id.tvGender)
+            imgDel=view.findViewById(R.id.imgDel)
 
         }
     }
@@ -54,6 +58,13 @@ class StudentAdapter(
         Glide.with(context)
             .load(student.image)
             .into(holder.imgProfile)
+
+        holder.imgDel.setOnClickListener{
+            studentdata.removeAt(position)
+            notifyItemRemoved(position)
+            notifyDataSetChanged()
+            notifyItemRangeChanged(position,studentdata.size)
+        }
     }
 
     override fun getItemCount(): Int {

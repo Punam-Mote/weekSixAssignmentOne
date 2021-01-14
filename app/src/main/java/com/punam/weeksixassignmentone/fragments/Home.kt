@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,14 +18,12 @@ import com.punam.weeksixassignmentone.model.Student
 
 class Home : Fragment() {
         var listStudent=ArrayList<Student>()
-    //private var studentdata=ArrayList<Student>()
     private lateinit var recyclerView: RecyclerView
-    var displayMessage:String?=""
+    private lateinit var btnRefresh:Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
 
     }
 
@@ -33,6 +32,12 @@ class Home : Fragment() {
         // Inflate the layout for this fragment
         val view= inflater.inflate(R.layout.fragment_home, container, false)
         recyclerView=view.findViewById(R.id.recyclerView)
+        btnRefresh=view.findViewById(R.id.btnRefresh)
+
+        btnRefresh.setOnClickListener {
+            recyclerView.adapter?.notifyDataSetChanged()
+
+        }
 
         if(StudentData.get().List().size==0){
             loadStudents();
@@ -41,18 +46,6 @@ class Home : Fragment() {
         val adapter=StudentAdapter(StudentData.get().List(),context!!)
         recyclerView.layoutManager=LinearLayoutManager(context)
         recyclerView.adapter=adapter
-//        val adapter=context?.let { ViewPageAdapter(listStudent, it) }
-//        recyclerView.layoutManager= LinearLayoutManager(null)
-//      recyclerView.adapter=adapter
-
-//        Bundle bundle =this.getArguments()
-//        String data=bundle.getString("studentdata")
-//        adapter.notifyDataSetChanged();
-
-//        displayMessage=arguments?.getString("studentdata")
-//        displayMessage= listStudent.toString()
-
-
 
         return view;
 
@@ -61,11 +54,6 @@ class Home : Fragment() {
         StudentData.get().List().add(Student(1,"Aksana chetri",19,"Female","Nakkhu",
                 "https://scontent.fktm8-1.fna.fbcdn.net/v/t1.0-9/123191009_789660098518779_90415475176227567_o.jpg?_nc_cat=106&ccb=2&_nc_sid=09cbfe&_nc_ohc=YAzPPq5TVksAX-JVWPy&_nc_ht=scontent.fktm8-1.fna&oh=d558e373f0509be4a82a2c004ff48bc1&oe=6020CAAB"))
 
-//        listStudent.add(
-//                Student(1,"Aksana chetri",19,"Female","Nakkhu",
-//                        "https://scontent.fktm8-1.fna.fbcdn.net/v/t1.0-9/123191009_789660098518779_90415475176227567_o.jpg?_nc_cat=106&ccb=2&_nc_sid=09cbfe&_nc_ohc=YAzPPq5TVksAX-JVWPy&_nc_ht=scontent.fktm8-1.fna&oh=d558e373f0509be4a82a2c004ff48bc1&oe=6020CAAB")
-//        )
-//
         StudentData.get().List().add(
                 Student(2,"Arya",22,"Female","Lazimpat",
                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD2zBDJDpa84W6NNahxmHbYTLf2-YKVc6k5Q&usqp=CAU")
@@ -77,6 +65,7 @@ class Home : Fragment() {
         )
 
     }
+
 
 
 

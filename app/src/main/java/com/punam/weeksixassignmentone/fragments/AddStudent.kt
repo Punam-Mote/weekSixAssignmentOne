@@ -1,7 +1,5 @@
 package com.punam.weeksixassignmentone.fragments
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +9,6 @@ import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
-import com.punam.weeksixassignmentone.CommunicateInterface
 import com.punam.weeksixassignmentone.R
 import com.punam.weeksixassignmentone.StudentData
 import com.punam.weeksixassignmentone.model.Student
@@ -30,13 +27,8 @@ class AddStudent : Fragment(){
     private lateinit var etimage:EditText
 
     private lateinit var btnSave:Button
-  //  var arrayList = arrayListOf<Student>()
-
-
-
 
      var newStudent=ArrayList<Student>()
-  // private lateinit var communicateInterface: CommunicateInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,9 +49,7 @@ class AddStudent : Fragment(){
         etimage=view.findViewById(R.id.etimage)
         btnSave=view.findViewById(R.id.btnSave)
 
-//        val addstudent = AddStudent()
 
-   //     communicateInterface=activity as CommunicateInterface
         btnSave.setOnClickListener {
             var name = etName.text.toString();
             var age = 0;
@@ -69,29 +59,36 @@ class AddStudent : Fragment(){
                 e.printStackTrace();
                 age = 0;
             }
-            var gender = rdGroup.checkedRadioButtonId.toString();
+            var gender=rdGroup.checkedRadioButtonId.toString()
+            if(rdGroup.checkedRadioButtonId!=1){
+                if(rdMale.isChecked){
+                    gender="Male"
+                }else if (rdFemale.isChecked){
+                    gender="Female"
+                }else if (rdOthers.isChecked){
+                    gender="other"
+                }
+            }
+
             var address = etAddress.text.toString();
             var image = etimage.text.toString();
             var studentdata = Student(id, name, age, gender, address, image)
 
             newStudent.add(studentdata);
             var bundle = Bundle()
-//            bundle.putExtra("data","yourdata");
             bundle.putString("data","yourdata");
             var homeFragment = Home();
             homeFragment.arguments = bundle
             StudentData.get().List().add(studentdata);
-//            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.viewPage,homeFragment)?.commit()
 
+            etName.setText("")
+            etAge.setText("")
+            rdMale.isChecked=false
+            rdFemale.isChecked=false
+            rdOthers.isChecked=false
+            etAddress.setText("")
+            etimage.setText("")
 
-
-
-           // communicateInterface.passData(newStudent)
-
-//            Bundle bundle = new Bundle();
-//            bundle.putString("studentdata",newStudent)
-//            Home fragment = new Home() fragment.setArgument(bundle)
-//            fragmentManager().beginTransaction().replace(R.id.linearContainer,fragmentManager).commit()
         }
 
 
